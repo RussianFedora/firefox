@@ -86,6 +86,7 @@ BuildRequires:  system-bookmarks
 BuildRequires:  gecko-devel%{?_isa} = %{gecko_verrel}
 # For WebM support
 BuildRequires:	yasm
+BuildRequires:	zip
 
 Requires:       gecko-libs%{?_isa} = %{gecko_verrel}
 Requires:       system-bookmarks
