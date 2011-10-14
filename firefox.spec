@@ -84,10 +84,11 @@ Patch14:        firefox-5.0-asciidel.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  system-bookmarks
 BuildRequires:  gecko-devel%{?_isa} = %{gecko_verrel}
+BuildRequires:  xulrunner-devel >= %{version}
 # For WebM support
 BuildRequires:	yasm
-BuildRequires:	zip
 
+Requires:       xulrunner >= %{version}
 Requires:       gecko-libs%{?_isa} = %{gecko_verrel}
 Requires:       system-bookmarks
 Obsoletes:      mozilla <= 37:1.7.13
