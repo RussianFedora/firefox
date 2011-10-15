@@ -5,7 +5,7 @@
 %define separated_plugins 0
 %endif
 
-%define homepage http://start.fedoraproject.org/
+%define homepage http://russianfedora.ru
 %define default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 
@@ -84,11 +84,9 @@ Patch14:        firefox-5.0-asciidel.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  system-bookmarks
 BuildRequires:  gecko-devel%{?_isa} = %{gecko_verrel}
-BuildRequires:  xulrunner-devel >= %{version}
 # For WebM support
 BuildRequires:	yasm
 
-Requires:       xulrunner >= %{version}
 Requires:       gecko-libs%{?_isa} = %{gecko_verrel}
 Requires:       system-bookmarks
 Obsoletes:      mozilla <= 37:1.7.13
@@ -344,6 +342,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Fri Oct 14 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-2
 - bump release
+- russianfedora.ru is homepage now
 
 * Fri Sep 30 2011 Jan Horak <jhorak@redhat.com> - 7.0.1-1
 - Update to 7.0.1
