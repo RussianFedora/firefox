@@ -1,6 +1,6 @@
 diff -urN mozilla-release.orig/configure mozilla-release/configure
---- mozilla-release.orig/configure	2011-10-28 13:17:09.946565039 +0400
-+++ mozilla-release/configure	2011-10-28 13:26:16.014611575 +0400
+--- mozilla-release.orig/configure	2011-10-28 14:22:21.277838083 +0400
++++ mozilla-release/configure	2011-10-28 14:23:51.510500849 +0400
 @@ -24369,29 +24369,29 @@
    else
       PKG_CONFIG_MIN_VERSION=0.9.0
@@ -82,6 +82,15 @@ diff -urN mozilla-release.orig/configure mozilla-release/configure
              echo $CAIRO_TEE_PKG_ERRORS
          fi
  
+@@ -24500,7 +24500,7 @@
+      :
+   else
+      if test "$COMPILE_ENVIRONMENT"; then 
+-       { echo "configure: error: Library requirements (cairo-tee >= $CAIRO_VERSION) not met; consider adjusting the PKG_CONFIG_PATH environment variable if your libraries are in a nonstandard prefix so pkg-config can find them." 1>&2; exit 1; }
++       { echo "configure: error: Library requirements (cairo10-tee >= $CAIRO_VERSION) not met; consider adjusting the PKG_CONFIG_PATH environment variable if your libraries are in a nonstandard prefix so pkg-config can find them." 1>&2; exit 1; }
+      fi
+   fi
+ 
 @@ -24554,29 +24554,29 @@
    else
       PKG_CONFIG_MIN_VERSION=0.9.0
@@ -128,8 +137,8 @@ diff -urN mozilla-release.orig/configure mozilla-release/configure
    fi
  
 diff -urN mozilla-release.orig/configure.in mozilla-release/configure.in
---- mozilla-release.orig/configure.in	2011-10-28 13:17:08.375536135 +0400
-+++ mozilla-release/configure.in	2011-10-28 13:24:18.463448872 +0400
+--- mozilla-release.orig/configure.in	2011-10-28 14:22:21.275838045 +0400
++++ mozilla-release/configure.in	2011-10-28 14:24:13.968914704 +0400
 @@ -8603,12 +8603,12 @@
      mv -f $CAIRO_FEATURES_H "$CAIRO_FEATURES_H".orig 2> /dev/null
  
