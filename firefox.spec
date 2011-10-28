@@ -44,7 +44,7 @@
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        7.0.1
-Release:        3.el6.R
+Release:        3%{?dist}.R
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
@@ -344,7 +344,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
-* Fri Oct 28 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-3.el6.R
+* Fri Oct 28 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-3.R
 - rebuilt with some system components
 - added cairo10 patch
 
