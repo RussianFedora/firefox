@@ -67,6 +67,8 @@ Patch1:         firefox-7.0-cache-build.patch
 # Fedora patches
 Patch14:        firefox-5.0-asciidel.patch
 
+Patch90:	firefox-7.0.1-cairo10.patch
+
 # Upstream patches
 
 %if %{official_branding}
@@ -110,6 +112,8 @@ cd %{tarballdir}
 
 # Fedora patches
 %patch14 -p1 -b .asciidel
+
+%patch90 -p1 -b .cairo10
 
 # Upstream patches
 
@@ -342,6 +346,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Fri Oct 28 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-3.el6.R
 - rebuilt with some system components
+- added cairo10 patch
 
 * Fri Oct 14 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-2
 - bump release
