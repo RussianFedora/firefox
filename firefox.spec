@@ -9,7 +9,8 @@
 %define default_bookmarks_file %{_datadir}/bookmarks/default-bookmarks.html
 %define firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 
-%global gecko_version   7.0.1
+%global gecko_version   9.0.1
+%global gecko_release   1
 %global alpha_version   0
 %global beta_version    0
 %global rc_version      0
@@ -35,22 +36,22 @@
 %global pre_name    rc%{rc_version}
 %endif
 %if %{defined pre_version}
-%global gecko_verrel %{gecko_version}-%{pre_name}
+%global gecko_verrel %{gecko_version}-%{gecko_release}%{pre_name}
 %global pre_tag .%{pre_version}
 %else
-%global gecko_verrel %{gecko_version}
+%global gecko_verrel %{gecko_version}-%{gecko_release}
 %endif
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        7.0.1
-Release:        3%{?dist}.R
+Version:        9.0.1
+Release:        1%{?pre_tag}%{?dist}.R
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
 Source0:        ftp://ftp.mozilla.org/pub/firefox/releases/%{version}/source/firefox-%{version}.source.tar.bz2
 %if %{build_langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20110930.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20111223.tar.xz
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -62,12 +63,10 @@ Source23:       firefox.1
 
 #Build patches
 Patch0:         firefox-install-dir.patch
-Patch1:         firefox-7.0-cache-build.patch
 
 # Fedora patches
 Patch14:        firefox-5.0-asciidel.patch
-
-Patch90:	firefox-7.0.1-cairo10.patch
+Patch15:        firefox-8.0-enable-addons.patch
 
 # Upstream patches
 
@@ -104,16 +103,16 @@ compliance, performance and portability.
 %setup -q -c
 cd %{tarballdir}
 
-# Build patches
-%patch0 -p2 -b .install-dir
-%patch1 -p2 -b .cache
+# Build patches, can't change backup suffix from default because during build
+# there is a compare of config and js/config directories and .orig suffix is 
+# ignored during this compare.
+%patch0 -p2 -b .orig
 
 # For branding specific patches.
 
 # Fedora patches
 %patch14 -p1 -b .asciidel
-
-%patch90 -p1 -b .cairo10
+%patch15 -p2 -b .addons
 
 # Upstream patches
 
@@ -210,9 +209,11 @@ DESTDIR=$RPM_BUILD_ROOT make install
 
 %{__mkdir_p} $RPM_BUILD_ROOT{%{_libdir},%{_bindir},%{_datadir}/applications}
 
-desktop-file-install --vendor mozilla \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  %{SOURCE20} 
+%if 0%{?fedora} <= 16
+desktop-file-install --vendor mozilla --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE20}
+%else
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE20}
+%endif
 
 # set up the firefox start script
 %{__rm} -rf $RPM_BUILD_ROOT%{_bindir}/firefox
@@ -304,10 +305,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %doc %{_mandir}/man1/*
 %dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 %dir %{_libdir}/mozilla/extensions/%{firefox_app_id}
-%{_datadir}/applications/mozilla-%{name}.desktop
+%{_datadir}/applications/*.desktop
 %dir %{mozappdir}
 %doc %{mozappdir}/LICENSE
-%doc %{mozappdir}/README.txt
 %{mozappdir}/chrome
 %{mozappdir}/chrome.manifest
 %dir %{mozappdir}/components
@@ -344,13 +344,33 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
-* Fri Oct 28 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-3.R
-- rebuilt with some system components
-- added cairo10 patch
+* Sun Jan 15 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 9.0.1-1.R
+- rebuilt for EL6
 
-* Fri Oct 14 2011 Arkady L. Shane <ashejn@russianfedora.ru> - 7.0.1-2
-- bump release
-- russianfedora.ru is homepage now
+* Fri Dec 23 2011 Jan Horak <jhorak@redhat.com> - 9.0.1-1
+- Update to 9.0.1
+
+* Wed Dec 21 2011 Jan Horak <jhorak@redhat.com> - 9.0-3
+- Update to 9.0
+
+* Thu Dec 15 2011 Jan Horak <jhorak@redhat.com> - 9.0-1.beta5
+- Update to 9.0 Beta 5
+
+* Tue Nov 15 2011 Martin Stransky <stransky@redhat.com> - 8.0-3
+- Disabled addon check UI (#753551)
+
+* Tue Nov 15 2011 Martin Stransky <stransky@redhat.com> - 8.0-2
+- Temporary workaround for langpacks (#753551)
+
+* Tue Nov  8 2011 Jan Horak <jhorak@redhat.com> - 8.0-1
+- Update to 8.0
+
+* Mon Oct 24 2011 Martin Stransky <stransky@redhat.com> - 7.0.1-3
+- reverted the desktop file name for Fedora15 & 16
+
+* Mon Oct 24 2011 Martin Stransky <stransky@redhat.com> - 7.0.1-2
+- renamed mozilla-firefox.desktop to firefox.desktop (#736558)
+- nspluginwrapper is not run in plugin-container (#747981)
 
 * Fri Sep 30 2011 Jan Horak <jhorak@redhat.com> - 7.0.1-1
 - Update to 7.0.1
