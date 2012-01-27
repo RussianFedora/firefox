@@ -49,11 +49,11 @@
 Summary:        Mozilla Firefox Web browser
 Name:           %{shortname}
 Version:        9.0.1
-Release:        1%{?dist}.R
+Release:        2%{?dist}.R
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
-Source0:        ftp://ftp.mozilla.org/pub/firefox/releases/9.0.1/source/firefox-%{version}.source.tar.bz2
+Source0:        ftp://ftp.mozilla.org/pub/firefox/releases/%{version}/source/firefox-%{version}.source.tar.bz2
 %if %{build_langpacks}
 Source1:        firefox-langpacks-%{version}%{?pre_version}-%{datelang}.tar.bz2
 %endif
@@ -398,6 +398,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sun Jan 30 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 9.0.1-2.R
+- bump release
+
 * Fri Jan 27 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 9.0.1-1.R
 - drop gecko-libs requires
 
