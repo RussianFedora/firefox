@@ -44,14 +44,14 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        10.0
+Version:        10.0.1
 Release:        1%{?pre_tag}%{?dist}.R
 URL:            http://www.mozilla.org/projects/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Group:          Applications/Internet
 Source0:        ftp://ftp.mozilla.org/pub/firefox/releases/%{version}/source/firefox-%{version}.source.tar.bz2
 %if %{build_langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20120131.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20120209.tar.xz
 %endif
 Source10:       firefox-mozconfig
 Source11:       firefox-mozconfig-branded
@@ -347,6 +347,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Sun Feb 12 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 10.0.1-1.R
+- update to 10.0.1
+- Fixed rhbz#786983
+
 * Wed Feb  1 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 10.0-1.R
 - rebuilt for EL6
 
