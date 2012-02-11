@@ -69,6 +69,8 @@ Patch14:        firefox-5.0-asciidel.patch
 Patch15:        firefox-8.0-enable-addons.patch
 
 # Upstream patches
+# fixes non functional web development tools, obsolete by version 11
+Patch100:       mozilla-703633.patch
 
 %if %{official_branding}
 # Required by Mozilla Corporation
@@ -115,6 +117,7 @@ cd %{tarballdir}
 %patch15 -p2 -b .addons
 
 # Upstream patches
+%patch100 -p1 -b .703633
 
 %if %{official_branding}
 # Required by Mozilla Corporation
